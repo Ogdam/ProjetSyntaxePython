@@ -1,5 +1,5 @@
 from tokenizer.tokenizer import tokenizer
-from parser.parser import ast
+from parser2.parser import lineParser
 
 with open("../test.py", 'r', encoding='utf-8') as testfile:
     tokenList = testfile.read()
@@ -11,5 +11,7 @@ with open("../test.py", 'r', encoding='utf-8') as testfile:
 
 
     print("-----------------------------AST-----------------------------")
-    lines = ast(tokenList)
-    print(ast)
+    lines = lineParser(tokenList)
+    for i in lines:
+        for j in i:
+            print(j)
