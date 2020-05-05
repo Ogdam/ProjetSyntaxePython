@@ -1,5 +1,5 @@
-import constantes as constParser
-import constants as constToken
+import parser.constantes as constParser
+import tokenizer.constants as constToken
 
 def searchString(tokens, start):
     string=[]
