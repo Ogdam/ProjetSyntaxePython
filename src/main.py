@@ -12,6 +12,4 @@ with open("../test.py", 'r', encoding='utf-8') as testfile:
 
     print("-----------------------------AST-----------------------------")
     lines = ast(tokenList)
-    for i in lines:
-        for j in i:
-            print(j)
+    print(ast)
