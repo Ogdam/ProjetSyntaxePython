@@ -1,14 +1,5 @@
-a=3
-b=["je","suis"]
-c={"a": "b"}
-d= /;/
-c = (3, 4)
-print("a")
+a = 3
+b = "test"
 
-def test():
-    print("test")
-
-    if a == c[1]:
-        True
-    else:
-        False
+def c(a, b):
+    print(a)
