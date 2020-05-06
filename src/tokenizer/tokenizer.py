@@ -7,46 +7,51 @@ from .constants import (
  endOfLine
 )
 
-def characterType(char):
-    for word in specialChars:
-        if char in word['value']:
-            return word["name"]
 
-def replaceSpecialChar(file):
-    for word in specialChars:
-        file = file.replace(word["regex"], word["value"])
-    return file
-
-
-def tokenizer(file):
-    file = replaceSpecialChar(file)
-    splitFile = re.split('\n', file)
+class Tokenizer:
     token = []
-    for splitLine in splitFile:
-        if len(splitLine)<=0:
-            continue
-        flag=True
-        split = re.split(' ', splitLine)
-        for line in split :
-            if re.search("\*.\*", line):
-                type = characterType(line)
-                if type != None:
-                    token.append({'type': type })
-            elif len(line)<=0 and flag :
-                token.append({'type': "space"})
-                continue
-            elif len(line)<=0 and flag is False :
-                continue
-            else:
-                try:
-                    i = int(line)
-                    token.append({'type': typeNumber, "value" : line})
-                except:
-                    token.append({'type': typeWord, "value" : line})
 
-            flag=False
-        token.append({'type': endOfLine})
+    def __init__(self, file):
+        self.file = file
 
-    if len(token)<=0:
-        token.append({'type': errorToken })
-    return token
+    def tokenize(self):
+        self.replaceSpecialChar()
+        splitFile = re.split('\n', self.file)
+        for splitLine in splitFile:
+            if len(splitLine)<=0:
+                continue
+            flag=True
+            split = re.split(' ', splitLine)
+            for line in split :
+                if re.search("\*.\*", line):
+                    type = self.characterType(line)
+                    if type != None:
+                        self.token.append({'type': type })
+                elif len(line)<=0 and flag :
+                    self.token.append({'type': "space"})
+                    continue
+                elif len(line)<=0 and flag is False :
+                    continue
+                else:
+                    try:
+                        i = int(line)
+                        self.token.append({'type': typeNumber, "value" : line})
+                    except:
+                        self.token.append({'type': typeWord, "value" : line})
+
+                flag=False
+            self.token.append({'type': endOfLine})
+
+        if len(self.token)<=0:
+            self.token.append({'type': errorToken })
+        return self.token
+
+
+    def characterType(self, char):
+        for word in specialChars:
+            if char in word['value']:
+                return word["name"]
+
+    def replaceSpecialChar(self):
+        for word in specialChars:
+            self.file = self.file.replace(word["regex"], word["value"])
