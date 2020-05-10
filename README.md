@@ -2,11 +2,11 @@
 
 
  ### Analyse syntaxique ( ASL )
-    * [X] : définitions de fonctions
-    * [X] boucle/test
+    * [x] : définitions de fonctions
+    * [x] boucle/test
     * [x] = affectation
-    * [X] > / < / <= / >= / == / is not / is -> test d'égalité
+    * [x] > / < / <= / >= / == / is not / is -> test d'égalité
     * [ ] {}  Dictionnaire
     * [ ] ()  Tuples
-    * [X] \[\]  Liste
-    * [X] tabulation
+    * [x] \[\]  Liste
+    * [x] tabulation
