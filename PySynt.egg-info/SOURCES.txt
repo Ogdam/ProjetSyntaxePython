@@ -1,0 +1,7 @@
+README.md
+setup.py
+PySynt.egg-info/PKG-INFO
+PySynt.egg-info/SOURCES.txt
+PySynt.egg-info/dependency_links.txt
+PySynt.egg-info/entry_points.txt
+PySynt.egg-info/top_level.txt
