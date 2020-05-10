@@ -1,5 +1,5 @@
-from tokenizer.tokenizer import Tokenizer
-from parser.parser import Parser
+from ..tokenizer.tokenizer import Tokenizer
+from ..parser.parser import Parser
 import argparse
 
 def test_file(file_name):
@@ -29,8 +29,11 @@ def test_file(file_name):
     print("note : {}/5".format(errorList.calculNote()))
 
 
-if __name__ == '__main__':
+def pySynt():
     parser = argparse.ArgumentParser(description='Process some integers.')
     parser.add_argument("-f", action='store', dest='file_name', help="file to test")
     args = parser.parse_args()
     test_file(args.file_name)
+
+if __name__ == '__main__':
+    pySynt()
