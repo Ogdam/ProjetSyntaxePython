@@ -5,6 +5,11 @@ class ErrorList():
     def __init__(self, line):
         self.errorList = []
         self.lineNumber = line
+        if self.lineNumber > 200:
+            self.toManyLine():
+
+    def toManyLine():
+        self.errorList.append("File too long, contain more than 200 lines : {}".format(self.lineNumber))
 
     def testCamelCaseErrorName(self, name, line):
         if not re.match('[a-zA-Z]', name):
@@ -26,6 +31,9 @@ class ErrorList():
 
     def errorConditionOrder(self,line):
         self.errorList.append("line {} : les conditions doivent commencer par un if si il n'y a pas de conditions avant ou si c'était un else ".format(line))
+
+    def errorConditionMissingVar(self,line):
+        self.errorList.append("line {} : variable missing for conditions".format(line))
 
     def errorAffectation(self,line):
         self.errorList.append("line {} : wrong syntax in this affectation ".format(line))

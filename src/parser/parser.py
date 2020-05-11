@@ -74,9 +74,6 @@ class Parser():
             while i < len(line):
                 flag=False
                 if noMoreElements:
-                    print(i)
-                    print(line)
-                    print(len(line))
                     self.listError.errorEndBlockDeclaration(index+1)
                     break
                 if line[i]["type"] == "Word":
@@ -131,8 +128,9 @@ class Parser():
                             else:
                                 i=  i + end +1
                             noMoreElements=True
+                            break
                         #elif on a rien apres le égal
-                        elif i<len(line)-1 : #après un word en début de ligne c'est soit un égal soit une fin de ligne sinon faux
+                        elif i<len(line)-1 : #après un word en début de ligne c'est soit un soit un test
                             egaliter = self.setTest(index, line, i+1)
                             AST.append(egaliter)
                             break
@@ -150,7 +148,16 @@ class Parser():
 
 
     def setTest(self, indexLine, line, index):
-        return {'type' : line[index]['type'], "var" :[ line[index-1]['value'], line[index+1]['value']] }
+        test = None
+        try :
+            if len(line) <= 3:
+                test = {'type' : 'boolean', "var" : [ line[index-1]['value'] ] }
+            else:
+                test = {'type' : 'boolean', "var" : [ line[index-1]['value'], line[index+1]['value']] }
+        except :
+            test = test = {'type' : 'boolean', "var" : [ '?' ] }
+            self.listError.errorConditionMissingVar(indexLine)
+        return test
 
     def setAffectation(self, indexLine, line, index):
         value = None
@@ -263,18 +270,7 @@ class Parser():
         flag=False
         cpt=2
         if line[i]["value"]== 'if' or line[i]["value"]== 'elif':
-            for k in range(i+1, len(line)):
-                if line[k]["type"] != 'definitions':
-                    if line[k]['type'] not in ['Word', 'Number']:
-                        for test in Constants.testChar.value:
-                            if line[k]['type'] == test['name']:
-                                booleanString+=test['regex']
-                    else:
-                        booleanString= booleanString+line[k]['value']
-                    cpt=cpt+1
-                else:
-                    flag=True
-                    break
+                booleanString = self.setTest(index, line, i+2)
         else :
             if len(line)>i+1 and line[i+1]["type"] == 'definitions':
                 flag=True
@@ -314,18 +310,7 @@ class Parser():
             cpt=len(line)
         elif line[i]['type']=='Word' and line[i]['value']=='while' and len(line)>i+2:
             cpt=2
-            for k in range(i+1, len(line)):
-                if line[k]["type"] != 'definitions':
-                    if line[k]['type'] not in ['Word', 'Number']:
-                        for test in Constants.testChar.value:
-                            if line[k]['type'] == test['name']:
-                                booleanString+=test['regex']
-                    else:
-                        booleanString= booleanString+line[k]['value']
-                    cpt=cpt+1
-                else:
-                    errorSyntaxe=False
-                    break
+            booleanString = self.setTest(index, line, i+2)
             cpt=len(line)
         if errorSyntaxe:
             self.listError.errorBoucles(index+1)
