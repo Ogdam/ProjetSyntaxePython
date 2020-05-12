@@ -1,7 +1,9 @@
 ## Projet Compilateur Python
 
-Author : https://github.com/BouchezGabriel
-         https://github.com/Ogdam
+Projet de lecture de code au sein du CFA INSTA 
+ 
+Author : * https://github.com/BouchezGabriel
+         * https://github.com/Ogdam
 
  ### Analyse syntaxique ( ASL )
     * [x] : définitions de fonctions
